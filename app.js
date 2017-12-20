@@ -34,7 +34,7 @@ app.listen(port, err => {
   if (err) {
     console.error(err);
   } else {
-    console.log(`http:\/\/localhost:${port}`);
+    console.log(`http:\/\/localhost:${port}/index.html`);
   }
 });
 
