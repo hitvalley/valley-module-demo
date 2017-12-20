@@ -5,8 +5,11 @@ the demo of valley_module
 
 ```
 npm i
-npm i -g nodemon
 npm start
 
 访问：http://localhost:8081/index.html
 ```
+
+## 结果
+
+![image](https://github.com/hitvalley/valley_module_demo/blob/master/static/img/result.png)
