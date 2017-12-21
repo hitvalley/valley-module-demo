@@ -1,0 +1,61 @@
+<div id="main"></div>
+<script src="js/valley-module.js"></script>
+<script src="js/valleytpl.js"></script>
+<script>
+
+class RouterModule extends ValleyModule {
+  constructor(input) {
+    super(input);
+    this.tplUrl = input.tplUrl;
+    this.dataUrl = input.dataUrl;
+  }
+  prepare() {
+    this.use('sources', [
+      async next => {
+        return fetch(this.dataUrl).then(res => res.json())
+      },
+      async next => {
+        return fetch(this.tplUrl).then(res => res.text())
+      }
+    ])
+  }
+}
+
+class MainModule extends ValleyModule {
+  constructor(input) {
+    super(input);
+    this.node = document.querySelector(input.selector);
+  }
+  prepare() {
+    this.use('router', async next => {
+      let router;
+      let path = (location.hash || '#').substr(1);
+      switch(path) {
+      case 'index':
+      default:
+        router = new RouterModule({
+          tplUrl: '/html/main.html',
+          dataUrl: '/data'
+        });
+      }
+      this.context = await router.run();
+      await next();
+    });
+  }
+}
+
+let main = new MainModule({ selector: '#main' });
+main.use('render', async next => {
+  // console.log(main.context, main);
+  let tpl = main.context[1];
+  let data = main.context[0].data;
+  let html = vtpl(tpl, data);
+  console.log(html)
+  main.node.innerHTML = html;
+});
+
+window.onload = function() {
+  main.run();
+};
+
+</script>
