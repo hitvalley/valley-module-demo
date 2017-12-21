@@ -38,14 +38,9 @@ class MainModule extends ValleyModule {
           dataUrl: '/data'
         });
       }
-      // let res = await router.init();
-      this.context = await router.init();
-      // console.log(this.context, this)
+      this.context = await router.run();
       await next();
     });
-    // this.use('info', async next => {
-      // console.log(this.context, this);
-    // });
   }
 }
 
@@ -60,7 +55,7 @@ main.use('render', async next => {
 });
 
 window.onload = function() {
-  main.init();
+  main.run();
 };
 
 </script>

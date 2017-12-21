@@ -3,37 +3,35 @@ var ValleyModule = (function () {
 
 let emptyFn = () => {};
 
+function runItem(index, queue) {
+  let fn = queue[index];
+  if (!fn) {
+    return;
+  }
+  return fn(() => {
+    return runItem(index + 1, queue);
+  });
+}
+
 class ValleyModule {
   constructor(input) {
     input = input || {};
-    // this.queue = input.queue || [];
     this.names = [];
     this.jobQueue = [];
     this.indexObj = {};
 
-    this.use('__begin', async next => {
-      let res = await next().catch(err => {
-        console.log(err);
-        this.context = err;
-      });
-      return this.context;
-    });
-
+    this.context = {};
     this.prepare && this.prepare();
   }
-  init(context) {
-    this.context = context || this.context || {};
-    let res = this.run();
-    return res;
-  }
+  // init(context) {
+    // this.context = context || this.context || {};
+    // let res = this.run();
+    // return res;
+  // }
   use(name, component) {
     let self = this;
     let item;
 
-    // this.queue.push({
-      // name,
-      // component
-    // });
     this.names.push(name);
 
     if (typeof component === 'function') {
@@ -45,11 +43,6 @@ class ValleyModule {
           await next();
         };
       } else {
-        // item = async next => {
-          // console.log(self)
-          // return component.call(self, next);
-        // }
-        // console.log(item, component, self)
         item = component.bind(self);
       }
     } else if (component instanceof Array) {
@@ -88,22 +81,31 @@ class ValleyModule {
   getNames() {
     return this.names;
   }
-  runItem(index) {
-    let fn = this.jobQueue[index];
-    let self = this;
-    if (!fn) {
-      return;
+  run(tag, context) {
+    if (typeof tag === 'object') {
+      context = tag;
+      tag = null;
     }
-    return fn.call(this, () => {
-      return self.runItem(index + 1);
-    });
-  }
-  run(tag) {
-    let startIndex = this.findIndex(tag || '__begin');
+
+    let startIndex = tag ? this.findIndex(tag) : 0;
     if (startIndex < 0) {
       return Promise.reject(`No [${tag}] in queue`);
     }
-    return this.runItem(startIndex);
+
+    if (context) {
+      this.context = Object.assign({}, this.context, context);
+    }
+
+    // 最外层的封装，queue执行到最后将context作为返回值返回
+    let tmpArr = this.jobQueue.slice(startIndex);
+    tmpArr.unshift(async next => {
+      let res = await next().catch(err => {
+        this.context = err;
+      });
+      return this.context;
+    });
+
+    return runItem(startIndex, tmpArr);
   }
 }
 
