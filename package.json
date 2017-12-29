@@ -17,6 +17,6 @@
   "dependencies": {
     "valley-router": "^1.0.4",
     "valley-server": "^1.0.10",
-    "valley-tpl": "^1.0.2"
+    "valley-tpl": "^1.0.4"
   }
 }

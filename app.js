@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const ValleyServer = require('valley-server');
 const ValleyRouter = require('valley-router');
+const ValleyTpl = require('valley-tpl');
 
 // const Koa = require('koa');
 // const kstatic = require('koa-static');
@@ -15,6 +16,7 @@ global.join = (...args) => {
 
 const server = new ValleyServer();
 
+server.use('prepare-tpl', ValleyTpl);
 server.staticPath(path.join(__dirname, 'static'));
 
 const mainRouter = require(join('routers', 'main'));
