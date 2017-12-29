@@ -35,7 +35,7 @@ class MainModule extends ValleyModule {
       default:
         router = new RouterModule({
           tplUrl: '/html/main.html',
-          dataUrl: '/data'
+          dataUrl: '/data/list'
         });
       }
       this.context = await router.run();

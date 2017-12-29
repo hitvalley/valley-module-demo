@@ -1,7 +1,8 @@
-const router = require('koa-router')();
+const ValleyRouter = require('valley-router');
 
-router.get('/', async ctx => {
-  ctx.body = 'test';
+const router = new ValleyRouter();
+router.get('/', async function(next) {
+  this.context.text('test');
 });
 
 module.exports = router;

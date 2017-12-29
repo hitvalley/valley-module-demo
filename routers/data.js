@@ -1,7 +1,8 @@
-const router = require('koa-router')();
+const ValleyRouter = require('valley-router');
+const router = new ValleyRouter();
 
-router.get('/', async ctx => {
-  ctx.body = {
+router.get('/list', async function(next) {
+  this.context.json({
     code: 0,
     data: {
       countries: [
@@ -11,8 +12,7 @@ router.get('/', async ctx => {
       ],
       author: 'gty'
     }
-  };
+  });
 });
 
 module.exports = router;
-module.exports.keyname = '/data';

@@ -4,14 +4,19 @@
   "description": "for server demo",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "debug": "DEBUG=* node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hitvalley/valley-module.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.4.1",
-    "koa-router": "^7.3.0",
-    "koa-static": "^4.0.2"
+    "valley-router": "^1.0.4",
+    "valley-server": "^1.0.10",
+    "valley-tpl": "^1.0.2"
   }
 }
