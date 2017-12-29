@@ -1,5 +1,12 @@
-# valley_module_demo
-the demo of valley_module
+# valley-module-demo
+the demo of valley-module
+
+这个 demo 主要用于模块实例和测试
+
+* valley-module
+* valley-server
+* valley-router
+* valley-tpl
 
 ## 运行
 
