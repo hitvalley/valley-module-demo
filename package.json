@@ -1,5 +1,5 @@
 {
-  "name": "valley_module_demo",
+  "name": "valley-module-demo",
   "version": "1.0.0",
   "description": "for server demo",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hitvalley/valley-module.git"
+    "url": "git+https://github.com/hitvalley/valley-module-demo.git"
   },
   "keywords": [],
   "author": "",
