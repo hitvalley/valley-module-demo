@@ -15,8 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "valley-router": "^1.0.4",
-    "valley-server": "^1.0.10",
-    "valley-tpl": "^1.0.4"
+    "debug": "^3.1.0",
+    "valley-router": "^1.0.5",
+    "valley-server": "^1.0.11",
+    "valley-tpl": "^1.0.5"
   }
 }

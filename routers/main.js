@@ -1,4 +1,5 @@
 const ValleyRouter = require('valley-router');
+const debug = require('debug')('router:main');
 
 const router = new ValleyRouter();
 router.get('/', async function(next) {
@@ -14,6 +15,7 @@ router.get('/', async function(next) {
 </ul>';
   let data = { name: 'valley' };
   let html = this.context.render(tpl, data);
+  debug('path:/');
   this.context.text(html);
 });
 
